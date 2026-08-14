@@ -42,8 +42,8 @@ export default function Home() {
             </h1>
             <p className="mt-5 text-lg leading-relaxed text-slate-600 sm:text-xl dark:text-slate-300">
               Все темы Math и Reading &amp; Writing разложены по блокам, как на экзамене. Подробные объяснения на
-              русском с картинками и графиками, реальные примеры заданий на английском, мгновенная проверка, гайд по
-              Desmos и стрик за ежедневные занятия. 🔥
+              русском с картинками и графиками, реальные примеры заданий на английском, мгновенная проверка и стрик
+              за ежедневные занятия. 🔥
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -57,12 +57,6 @@ export default function Home() {
                 className="rounded-2xl border-2 border-slate-300 bg-white/80 px-7 py-3.5 text-base font-bold text-slate-700 backdrop-blur transition hover:border-blue-400 hover:text-blue-600 dark:border-slate-600 dark:bg-slate-800/70 dark:text-slate-200"
               >
                 Начать с чтения и письма
-              </Link>
-              <Link
-                to="/desmos"
-                className="rounded-2xl border-2 border-transparent bg-amber-50 px-7 py-3.5 text-base font-bold text-amber-700 transition hover:bg-amber-100 dark:bg-amber-950/30 dark:text-amber-400"
-              >
-                🧮 Супергайд по Desmos
               </Link>
             </div>
           </div>

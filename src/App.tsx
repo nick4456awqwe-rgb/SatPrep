@@ -6,7 +6,6 @@ import SubjectHub from './pages/SubjectHub';
 import TopicPage from './pages/TopicPage';
 import UnitTest from './pages/UnitTest';
 import Practice from './pages/Practice';
-import DesmosGuide from './pages/DesmosGuide';
 
 export default function App() {
   return (
@@ -16,7 +15,6 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/practice" element={<Practice />} />
-          <Route path="/desmos" element={<DesmosGuide />} />
 
           <Route path="/math" element={<CourseLayout subject="math" />}>
             <Route index element={<SubjectHub subject="math" />} />

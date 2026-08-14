@@ -608,6 +608,160 @@ export default function Diagram({ id }: { id: string }) {
       );
     }
 
+    // ---------- HEIGHTS: 2D SHAPES ----------
+    case 'triangle-height-drop': {
+      return (
+        <Frame viewBox="0 0 320 190" h={190}>
+          <g transform="translate(20,15)">
+            <polygon points="10,150 260,150 90,20" fill="none" stroke={CURVE_A} strokeWidth={2.5} />
+            <line x1={90} y1={150} x2={90} y2={20} stroke={CURVE_D} strokeWidth={2} strokeDasharray="5 4" />
+            <rect x={82} y={142} width={16} height={16} fill="none" stroke={CURVE_D} strokeWidth={1.5} />
+            <text x={100} y={90} className={LABEL} fill={CURVE_D} fontWeight={700}>высота h</text>
+            <text x={130} y={168} textAnchor="middle" className={LABEL}>основание (base)</text>
+          </g>
+          <text x={160} y={182} textAnchor="middle" className={LABEL}>
+            высота — это ВСЕГДА перпендикуляр к основанию, а не боковая сторона
+          </text>
+        </Frame>
+      );
+    }
+    case 'trapezoid-height-detail': {
+      return (
+        <Frame viewBox="0 0 320 190" h={190}>
+          <g transform="translate(30,20)">
+            <polygon points="0,120 220,120 170,10 60,10" fill="none" stroke={CURVE_B} strokeWidth={2.5} />
+            <line x1={60} y1={120} x2={60} y2={10} stroke={CURVE_D} strokeWidth={2} strokeDasharray="5 4" />
+            <rect x={52} y={102} width={16} height={16} fill="none" stroke={CURVE_D} strokeWidth={1.5} />
+            <text x={70} y={70} className={LABEL} fill={CURVE_D} fontWeight={700}>h</text>
+            <text x={110} y={-2} textAnchor="middle" className={LABEL}>основание b₁</text>
+            <text x={110} y={140} textAnchor="middle" className={LABEL}>основание b₂</text>
+          </g>
+          <text x={160} y={182} textAnchor="middle" className={LABEL}>площадь = ½(b₁+b₂)·h, где h — перпендикуляр между основаниями</text>
+        </Frame>
+      );
+    }
+    case 'parallelogram-height-detail': {
+      return (
+        <Frame viewBox="0 0 320 190" h={190}>
+          <g transform="translate(30,20)">
+            <polygon points="0,120 180,120 220,20 40,20" fill="none" stroke={CURVE_C} strokeWidth={2.5} />
+            <line x1={40} y1={120} x2={40} y2={20} stroke={CURVE_D} strokeWidth={2} strokeDasharray="5 4" />
+            <rect x={32} y={102} width={16} height={16} fill="none" stroke={CURVE_D} strokeWidth={1.5} />
+            <text x={50} y={75} className={LABEL} fill={CURVE_D} fontWeight={700}>высота h</text>
+            <text x={130} y={140} textAnchor="middle" className={LABEL}>основание</text>
+            <text x={135} y={8} textAnchor="middle" className={LABEL} fill="#a855f7">боковая сторона ≠ высота!</text>
+          </g>
+          <text x={160} y={182} textAnchor="middle" className={LABEL}>площадь = основание × ВЫСОТА (не боковая сторона)</text>
+        </Frame>
+      );
+    }
+
+    // ---------- HEIGHTS: 3D SOLIDS ----------
+    case 'prism-dimensions': {
+      return (
+        <Frame viewBox="0 0 320 190" h={190}>
+          <g transform="translate(60,25)">
+            <polygon points="0,30 70,30 100,5 30,5" fill="none" stroke={CURVE_A} strokeWidth={1.5} />
+            <polygon points="0,30 0,110 70,110 70,30" fill="none" stroke={CURVE_A} strokeWidth={1.5} />
+            <polygon points="70,30 100,5 100,85 70,110" fill="none" stroke={CURVE_A} strokeWidth={1.5} />
+            <line x1={0} y1={30} x2={0} y2={110} stroke={CURVE_D} strokeWidth={2} />
+            <text x={-14} y={75} textAnchor="end" className={LABEL} fill={CURVE_D} fontWeight={700}>h</text>
+            <text x={35} y={125} textAnchor="middle" className={LABEL}>длина (l)</text>
+            <text x={90} y={45} className={LABEL} fontSize={10}>ширина (w)</text>
+          </g>
+          <text x={160} y={182} textAnchor="middle" className={LABEL}>V = l × w × h — три независимых измерения</text>
+        </Frame>
+      );
+    }
+    case 'cylinder-height-radius': {
+      return (
+        <Frame viewBox="0 0 320 190" h={190}>
+          <g transform="translate(110,15)">
+            <ellipse cx={40} cy={15} rx={38} ry={13} fill="none" stroke={CURVE_B} strokeWidth={2} />
+            <line x1={2} y1={15} x2={2} y2={135} stroke={CURVE_B} strokeWidth={2} />
+            <line x1={78} y1={15} x2={78} y2={135} stroke={CURVE_B} strokeWidth={2} />
+            <path d="M 2 135 A 38 13 0 0 0 78 135" fill="none" stroke={CURVE_B} strokeWidth={2} />
+            <path d="M 2 135 A 38 13 0 0 1 78 135" fill="none" stroke={CURVE_B} strokeWidth={1} strokeDasharray="3 3" />
+            <line x1={40} y1={15} x2={78} y2={15} stroke={CURVE_D} strokeWidth={1.5} strokeDasharray="3 3" />
+            <text x={55} y={10} className={LABEL} fill={CURVE_D} fontSize={10}>r</text>
+            <line x1={95} y1={15} x2={95} y2={135} stroke={CURVE_D} strokeWidth={2} />
+            <text x={100} y={80} className={LABEL} fill={CURVE_D} fontWeight={700}>h</text>
+          </g>
+          <text x={160} y={182} textAnchor="middle" className={LABEL}>V = πr²h — h измеряется строго вертикально между основаниями</text>
+        </Frame>
+      );
+    }
+    case 'cone-height-slant': {
+      return (
+        <Frame viewBox="0 0 320 190" h={190}>
+          <g transform="translate(90,15)">
+            <ellipse cx={60} cy={130} rx={55} ry={16} fill="none" stroke={CURVE_C} strokeWidth={2} />
+            <line x1={60} y1={130} x2={60} y2={10} stroke={CURVE_D} strokeWidth={2} strokeDasharray="4 3" />
+            <line x1={60} y1={10} x2={5} y2={130} stroke={CURVE_C} strokeWidth={2.5} />
+            <line x1={60} y1={10} x2={115} y2={130} stroke={CURVE_C} strokeWidth={2.5} />
+            <text x={68} y={70} className={LABEL} fill={CURVE_D} fontWeight={700}>h (высота)</text>
+            <text x={20} y={75} className={LABEL} fill={CURVE_C} fontWeight={700}>l (наклонная)</text>
+            <line x1={60} y1={130} x2={5} y2={130} stroke="#a855f7" strokeWidth={1.5} strokeDasharray="3 3" />
+            <text x={20} y={148} className={LABEL} fill="#a855f7" fontSize={10}>r</text>
+          </g>
+          <text x={160} y={182} textAnchor="middle" className={LABEL}>
+            h ⊥ основанию (для объёма), l — боковая сторона (для площади поверхности): l² = r² + h²
+          </text>
+        </Frame>
+      );
+    }
+    case 'pyramid-height': {
+      return (
+        <Frame viewBox="0 0 320 190" h={190}>
+          <g transform="translate(70,15)">
+            <polygon points="0,130 160,130 130,105 30,105" fill="none" stroke="#a855f7" strokeWidth={2} />
+            <line x1={80} y1={117} x2={80} y2={10} stroke={CURVE_D} strokeWidth={2} strokeDasharray="4 3" />
+            <line x1={0} y1={130} x2={80} y2={10} stroke="#a855f7" strokeWidth={2.5} />
+            <line x1={160} y1={130} x2={80} y2={10} stroke="#a855f7" strokeWidth={2.5} />
+            <line x1={30} y1={105} x2={80} y2={10} stroke="#a855f7" strokeWidth={1.5} opacity={0.6} />
+            <line x1={130} y1={105} x2={80} y2={10} stroke="#a855f7" strokeWidth={1.5} opacity={0.6} />
+            <text x={88} y={65} className={LABEL} fill={CURVE_D} fontWeight={700}>h</text>
+            <circle cx={80} cy={117} r={3} fill={CURVE_D} />
+          </g>
+          <text x={160} y={182} textAnchor="middle" className={LABEL}>
+            h измеряется от вершины ДО ЦЕНТРА основания, строго перпендикулярно ему
+          </text>
+        </Frame>
+      );
+    }
+    case 'sphere-radius-diameter': {
+      return (
+        <Frame viewBox="0 0 320 190" h={190}>
+          <g transform="translate(90,20)">
+            <circle cx={70} cy={70} r={65} fill="none" stroke={CURVE_D} strokeWidth={2} />
+            <ellipse cx={70} cy={70} rx={65} ry={18} fill="none" stroke={CURVE_D} strokeWidth={1} strokeDasharray="3 3" />
+            <line x1={70} y1={70} x2={135} y2={70} stroke={CURVE_A} strokeWidth={2.5} />
+            <text x={100} y={62} className={LABEL} fill={CURVE_A} fontWeight={700}>r</text>
+            <line x1={5} y1={100} x2={135} y2={100} stroke={CURVE_B} strokeWidth={2} />
+            <text x={70} y={118} textAnchor="middle" className={LABEL} fill={CURVE_B} fontWeight={700}>d = 2r</text>
+          </g>
+          <text x={160} y={182} textAnchor="middle" className={LABEL}>V = (4/3)πr³ — используй именно радиус, а не диаметр!</text>
+        </Frame>
+      );
+    }
+    case 'composite-solid': {
+      return (
+        <Frame viewBox="0 0 320 190" h={190}>
+          <g transform="translate(110,15)">
+            <ellipse cx={40} cy={95} rx={38} ry={12} fill="none" stroke={CURVE_B} strokeWidth={2} />
+            <line x1={2} y1={95} x2={2} y2={140} stroke={CURVE_B} strokeWidth={2} />
+            <line x1={78} y1={95} x2={78} y2={140} stroke={CURVE_B} strokeWidth={2} />
+            <path d="M 2 140 A 38 12 0 0 0 78 140" fill="none" stroke={CURVE_B} strokeWidth={2} />
+            <line x1={2} y1={95} x2={40} y2={10} stroke={CURVE_C} strokeWidth={2.5} />
+            <line x1={78} y1={95} x2={40} y2={10} stroke={CURVE_C} strokeWidth={2.5} />
+            <text x={88} y={70} className={LABEL} fontSize={10}>конус сверху</text>
+            <text x={88} y={125} className={LABEL} fontSize={10}>цилиндр снизу</text>
+          </g>
+          <text x={160} y={182} textAnchor="middle" className={LABEL}>составное тело = сумма объёмов простых частей</text>
+        </Frame>
+      );
+    }
+
     // ---------- DATA ----------
     case 'scatterplot-trend': {
       const pts = [

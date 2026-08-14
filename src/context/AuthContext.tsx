@@ -1,6 +1,10 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
+import { onAuthStateChanged, signInWithPopup, signOut, type User } from 'firebase/auth';
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { auth, db, googleProvider, firebaseReady } from '../lib/firebase';
 
 export interface AuthUser {
+  uid: string;
   name: string;
   email: string;
   picture: string;
@@ -8,30 +12,64 @@ export interface AuthUser {
 
 interface AuthContextValue {
   user: AuthUser | null;
-  login: (user: AuthUser) => void;
-  logout: () => void;
+  ready: boolean; // Firebase config present
+  loading: boolean; // auth state resolving
+  loginWithGoogle: () => Promise<void>;
+  logout: () => Promise<void>;
 }
 
-const STORAGE_KEY = 'sat-prep-user-v1';
 const AuthContext = createContext<AuthContextValue | null>(null);
 
+function toAuthUser(u: User): AuthUser {
+  return {
+    uid: u.uid,
+    name: u.displayName ?? 'Пользователь',
+    email: u.email ?? '',
+    picture: u.photoURL ?? '',
+  };
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<AuthUser | null>(() => {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : null;
-    } catch {
-      return null;
-    }
-  });
+  const [user, setUser] = useState<AuthUser | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (user) localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
-    else localStorage.removeItem(STORAGE_KEY);
-  }, [user]);
+    if (!firebaseReady || !auth) {
+      setLoading(false);
+      return;
+    }
+    const unsub = onAuthStateChanged(auth, (fbUser) => {
+      setUser(fbUser ? toAuthUser(fbUser) : null);
+      setLoading(false);
+    });
+    return unsub;
+  }, []);
+
+  async function loginWithGoogle() {
+    if (!auth || !db) return;
+    const result = await signInWithPopup(auth, googleProvider);
+    const u = toAuthUser(result.user);
+    // Creates (or updates) a real account record in Firestore — this is the
+    // persistent "account" behind the Google sign-in, not just a local session.
+    await setDoc(
+      doc(db, 'users', u.uid),
+      {
+        name: u.name,
+        email: u.email,
+        picture: u.picture,
+        lastLoginAt: serverTimestamp(),
+      },
+      { merge: true }
+    );
+  }
+
+  async function logout() {
+    if (!auth) return;
+    await signOut(auth);
+  }
 
   return (
-    <AuthContext.Provider value={{ user, login: setUser, logout: () => setUser(null) }}>
+    <AuthContext.Provider value={{ user, ready: firebaseReady, loading, loginWithGoogle, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -73,14 +73,6 @@ export default function NavBar() {
           >
             Практика
           </NavLink>
-          <NavLink
-            to="/desmos"
-            className={({ isActive }) =>
-              `${linkBase} ${isActive ? 'bg-blue-600 text-white shadow-sm shadow-blue-600/30' : 'text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800'}`
-            }
-          >
-            Гайд по Desmos
-          </NavLink>
         </nav>
 
         <div className="flex items-center gap-3">
@@ -100,9 +92,6 @@ export default function NavBar() {
         </NavLink>
         <NavLink to="/practice" className={({ isActive }) => `${linkBase} ${isActive ? 'bg-blue-600 text-white' : 'text-slate-600 dark:text-slate-300'}`}>
           Практика
-        </NavLink>
-        <NavLink to="/desmos" className={({ isActive }) => `${linkBase} ${isActive ? 'bg-blue-600 text-white' : 'text-slate-600 dark:text-slate-300'}`}>
-          Desmos
         </NavLink>
       </nav>
     </header>
